@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: product-service:latest
+          image: sushmithasudarshan/product-service:latest
           ports:
             - containerPort: 5001
