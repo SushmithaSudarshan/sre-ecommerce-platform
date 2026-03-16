@@ -62,3 +62,34 @@ kubectl apply -f grafana/
 
 ### Self Healing — Pod Auto Recovery
 ![Self Healing](screenshots/k8s-self-healing.png)
+
+## Ansible
+
+Automates the entire Kubernetes deployment with a single command — replacing 7 manual kubectl commands.
+
+### How to Deploy with Ansible
+```bash
+cd phase-2-orchestration-automation/ansible
+ansible-playbook deploy.yml
+```
+
+### What the Playbook Does
+
+| Task | What it runs |
+|---|---|
+| Create namespace | `kubectl apply -f namespace.yml` |
+| Deploy product service | `kubectl apply -f product-service/` |
+| Deploy order service | `kubectl apply -f order-service/` |
+| Deploy user service | `kubectl apply -f user-service/` |
+| Deploy Kong | `kubectl apply -f kong/` |
+| Deploy Prometheus | `kubectl apply -f prometheus/` |
+| Deploy Grafana | `kubectl apply -f grafana/` |
+| Verify pods | `kubectl get pods -n ecommerce` |
+
+### Screenshots
+
+#### Ansible Playbook Output — All Tasks Successful
+![Ansible Output](screenshots/ansible-playbook-output.png)
+
+#### All Pods Running After Ansible Deployment
+![Pods Running](screenshots/ansible-pods-running.png)
