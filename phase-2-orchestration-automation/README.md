@@ -55,16 +55,3 @@ Single command deploys entire platform:
 ansible-playbook ansible/deploy.yml -e "env=dev"
 ```
 
-## Screenshots
-
-### Jenkins Pipeline — All Stages
-![Jenkins Pipeline](screenshots/jenkins-pipeline.png)
-
-### Jenkins — Build with Parameters
-![Jenkins Parameters](screenshots/jenkins-parameters.png)
-
-### Ansible Playbook Output
-![Ansible Output](screenshots/ansible-playbook-output.png)
-
-### All Pods Running After Deployment
-![Pods Running](screenshots/ansible-pods-running.png)
