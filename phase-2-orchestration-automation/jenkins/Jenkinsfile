@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['dev', 'staging', 'prod'],
+            description: 'Select deployment environment'
+        )
+    }
+
+    environment {
+        REGISTRY = credentials('docker-registry')
+        GIT_REPO = credentials('git-repo-url')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: "${GIT_REPO}",
+                    branch: 'main'
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    def services = ['product-service', 'order-service', 'user-service']
+                    services.each { service ->
+                        sh """
+                            docker build -t ${REGISTRY}/${service}:latest \
+                            ./phase-1-docker-observability/${service}
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Push to Registry') {
+            steps {
+                script {
+                    def services = ['product-service', 'order-service', 'user-service']
+                    services.each { service ->
+                        sh "docker push ${REGISTRY}/${service}:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy with Ansible') {
+            steps {
+                sh '''
+                    ansible-playbook \
+                    phase-2-orchestration-automation/ansible/deploy.yml \
+                    -e "env=${ENVIRONMENT}"
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment to ${params.ENVIRONMENT} succeeded!"
+        }
+        failure {
+            echo "Deployment to ${params.ENVIRONMENT} failed!"
+        }
+    }
+}
