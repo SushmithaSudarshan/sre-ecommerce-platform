@@ -1,34 +1,32 @@
 ---
-- name: Deploy SRE Ecommerce Platform to Kubernetes
+- name: Deploy SRE Ecommerce Platform
   hosts: localhost
   connection: local
 
+  vars:
+    env: "dev"
+    project_dir: "phase-1-docker-observability"
+
   tasks:
-    - name: Create ecommerce namespace
-      command: kubectl apply -f ../kubernetes/namespace.yml
-
-    - name: Deploy product service
-      command: kubectl apply -f ../kubernetes/product-service/
-
-    - name: Deploy order service
-      command: kubectl apply -f ../kubernetes/order-service/
-
-    - name: Deploy user service
-      command: kubectl apply -f ../kubernetes/user-service/
-
-    - name: Deploy Kong API Gateway
-      command: kubectl apply -f ../kubernetes/kong/
-
-    - name: Deploy Prometheus
-      command: kubectl apply -f ../kubernetes/prometheus/
-
-    - name: Deploy Grafana
-      command: kubectl apply -f ../kubernetes/grafana/
-
-    - name: Verify all pods are running
-      command: kubectl get pods -n ecommerce
-      register: pod_status
-
-    - name: Show pod status
+    - name: Print deployment environment
       debug:
-        msg: "{{ pod_status.stdout }}"
+        msg: "Deploying to {{ env }} environment"
+
+    - name: Stop existing containers
+      command: docker-compose down
+      args:
+        chdir: "{{ project_dir }}"
+      ignore_errors: yes
+
+    - name: Build and start containers
+      command: docker-compose up --build -d
+      args:
+        chdir: "{{ project_dir }}"
+
+    - name: Verify containers are running
+      command: docker ps
+      register: container_status
+
+    - name: Show container status
+      debug:
+        msg: "{{ container_status.stdout }}"

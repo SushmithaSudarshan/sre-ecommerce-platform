@@ -7,8 +7,8 @@ A production-grade e-commerce microservices platform built to demonstrate real-w
 | Phase | Focus | Tools |
 |---|---|---|
 | [Phase 1 — Containerisation & Observability](./phase-1-docker-observability) | Containerise microservices, API gateway, monitoring | Docker, Kong, Prometheus, Grafana |
-| Phase 2 — Orchestration & Automation *(coming soon)* | Container orchestration, CI/CD and infrastructure automation | Kubernetes, Jenkins, Ansible |
-| Phase 3 — Cloud Migration & IaC *(coming soon)* | Deploy to AWS cloud with infrastructure as code | AWS, EKS, Terraform |
+| Phase 2 — CI/CD & Automation *(coming soon)* | Automated build, push and deployment pipeline | Jenkins, Ansible |
+| Phase 3 — Cloud & Orchestration *(coming soon)* | Deploy to AWS cloud with Kubernetes and IaC | AWS, EKS, Kubernetes, Terraform |
 | Phase 4 — GitOps *(coming soon)* | Full end to end automation | GitHub Actions, ArgoCD |
 
 ## Business Problem
