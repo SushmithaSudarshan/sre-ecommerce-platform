@@ -49,11 +49,11 @@ pipeline {
 
         stage('Deploy with Ansible') {
             steps {
-                sh '''
+                sh """
                     ansible-playbook \
                     phase-2-orchestration-automation/ansible/deploy.yml \
-                    -e "env=${ENVIRONMENT}"
-                '''
+                    -e "env=${params.ENVIRONMENT}"
+                """
             }
         }
     }
