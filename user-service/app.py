@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 users = [
     {"user_id": 1, "name": "Sushmitha", "email": "sushmitha@email.com"},

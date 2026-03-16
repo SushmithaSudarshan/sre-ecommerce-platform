@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 products = [
     {"id": 1, "name": "Laptop", "price": 50000, "stock": 10},
