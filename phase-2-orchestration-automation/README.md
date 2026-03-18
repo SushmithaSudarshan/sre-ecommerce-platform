@@ -6,14 +6,14 @@ Automates the build, push and deployment of the e-commerce platform using Jenkin
 
 | Feature | Phase 1 | Phase 2 |
 |---|---|---|
-| Deployment | Manual `docker-compose up` | Automated via Jenkins + Ansible |
+| Deployment | Manual `docker compose up` | Automated via Jenkins + Ansible |
 | Build | Manual | Jenkins pipeline |
 | Environment targeting | None | Dev / Staging / Prod parameter |
 | Configuration management | Manual | Ansible playbook |
 
 ## Structure
 ```
-phase-2-ci-cd-automation/
+phase-2-orchestration-automation/
 ├── ansible/     # Automated deployment playbook
 └── jenkins/     # CI/CD pipeline
 ```
@@ -55,3 +55,19 @@ Single command deploys entire platform:
 ansible-playbook ansible/deploy.yml -e "env=dev"
 ```
 
+## Screenshots
+
+### Jenkins — Build with Parameters
+![Jenkins Parameters](screenshots/jenkins-parameters.png)
+
+### Jenkins — Environment Selection (dev/staging/prod)
+![Jenkins Dropdown](screenshots/jenkins-environment-dropdown.png)
+
+### Jenkins — Pipeline Steps (Checkout & Build)
+![Pipeline Steps 1](screenshots/jenkins-pipeline-steps-1.png)
+
+### Jenkins — Pipeline Steps (Push & Deploy)
+![Pipeline Steps 2](screenshots/jenkins-pipeline-steps-2.png)
+
+### Jenkins — Console Output Success
+![Console Success](screenshots/jenkins-console-success.png)

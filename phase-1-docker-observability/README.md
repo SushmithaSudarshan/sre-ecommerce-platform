@@ -1,6 +1,6 @@
-# SRE E-Commerce Platform — Phase 1: Containerisation & Observability
+# SRE E-Commerce Platform — Phase 1: Containerization & Observability
 
-A production-style e-commerce microservices platform demonstrating containerisation, API gateway management, and observability — built to reflect real-world SRE practices.
+A production-style e-commerce microservices platform demonstrating containerization, API gateway management, and observability — built to reflect real-world SRE practices.
 
 ## Architecture
 ```
@@ -25,7 +25,7 @@ Kong API Gateway (Port 8000)
 | Tool | Purpose |
 |---|---|
 | Python Flask | Microservices |
-| Docker & Docker Compose | Containerisation |
+| Docker & Docker Compose | Containerization |
 | Kong API Gateway | Routing, single entry point |
 | Prometheus | Metrics collection |
 | Grafana | Metrics visualisation |
@@ -50,7 +50,7 @@ docker-compose up --build
 
 ## What This Demonstrates
 
-- **Containerisation** — All services run in isolated Docker containers
+- **Containerization** — All services run in isolated Docker containers
 - **API Gateway** — Kong routes all traffic, no direct service access
 - **Observability** — Prometheus scrapes metrics every 15 seconds
 - **Incident Simulation** — Service failure detected and recovered, captured on Grafana
