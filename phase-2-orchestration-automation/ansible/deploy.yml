@@ -13,13 +13,13 @@
         msg: "Deploying to {{ env }} environment"
 
     - name: Stop existing containers
-      command: docker-compose down
+      command: docker compose down
       args:
         chdir: "{{ project_dir }}"
       ignore_errors: yes
 
     - name: Build and start containers
-      command: docker-compose up --build -d
+      command: docker compose up --build -d
       args:
         chdir: "{{ project_dir }}"
 
