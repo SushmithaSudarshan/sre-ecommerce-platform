@@ -19,12 +19,3 @@ output "configure_kubectl" {
   description = "Command to connect kubectl to your EKS cluster"
   value       = "aws eks update-kubeconfig --region ${var.aws_region} --name ${var.cluster_name}"
 }
-
-# ECR repository URLs (To push images and update manifests)
-output "ecr_repository_urls" {
-  description = "ECR repository URLs for each microservice"
-  value = {
-    for repo, details in aws_ecr_repository.microservices :
-    repo => details.repository_url
-  }
-}

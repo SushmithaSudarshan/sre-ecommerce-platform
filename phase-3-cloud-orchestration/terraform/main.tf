@@ -58,21 +58,3 @@ resource "aws_eks_node_group" "ecommerce_nodes" {
   # Node group depends on cluster being fully created first
   depends_on = [aws_eks_cluster.ecommerce]
 }
-
-# ECR Repositories (one per custom microservice)
-resource "aws_ecr_repository" "microservices" {
-  for_each = toset(var.ecr_repositories)
-
-  name                 = each.value
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-
-  tags = {
-    Name    = each.value
-    Project = "sre-ecommerce-platform"
-    Phase   = "phase-3"
-  }
-}

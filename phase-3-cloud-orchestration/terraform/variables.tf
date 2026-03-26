@@ -33,9 +33,3 @@ variable "node_max_count" {
   type        = number
   default     = 3
 }
-
-variable "ecr_repositories" {
-  description = "List of ECR repositories to create"
-  type        = list(string)
-  default     = ["product-service", "order-service", "user-service"]
-}
