@@ -1,14 +1,12 @@
-# Fetch available availability zones in the region
-data "aws_availability_zones" "available" {
-  state = "available"
-}
+# Fetch current AWS account details
+data "aws_caller_identity" "current" {}
 
-# Fetch the default VPC (playground provides this)
+# Fetch default VPC
 data "aws_vpc" "default" {
   default = true
 }
 
-# Fetch subnets from the default VPC
+# Fetch subnets from default VPC
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
@@ -17,6 +15,10 @@ data "aws_subnets" "default" {
 }
 
 # EKS Cluster
+# IAM roles (eksClusterRole, AmazonEKSNodeRole) are created manually
+# in the AWS console once as foundational infrastructure and referenced here.
+# In a automated setup, these would be provisioned via a separate
+# Terraform foundation layer.
 resource "aws_eks_cluster" "ecommerce" {
   name     = var.cluster_name
   role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/eksClusterRole"
@@ -32,10 +34,7 @@ resource "aws_eks_cluster" "ecommerce" {
   }
 }
 
-# Fetch current AWS account details (needed for IAM role ARN)
-data "aws_caller_identity" "current" {}
-
-# EKS Node Group (the EC2 worker machines)
+# EKS Node Group (EC2 worker machines)
 resource "aws_eks_node_group" "ecommerce_nodes" {
   cluster_name    = aws_eks_cluster.ecommerce.name
   node_group_name = "ecommerce-node-group"
@@ -55,6 +54,5 @@ resource "aws_eks_node_group" "ecommerce_nodes" {
     Phase   = "phase-3"
   }
 
-  # Node group depends on cluster being fully created first
   depends_on = [aws_eks_cluster.ecommerce]
 }
