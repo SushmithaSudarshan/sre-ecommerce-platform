@@ -8,9 +8,9 @@ spec:
     app: kong
   ports:
     - name: proxy
-      port: 8000
+      port: 80
       targetPort: 8000
     - name: admin
       port: 8001
       targetPort: 8001
-  type: NodePort
+  type: LoadBalancer
