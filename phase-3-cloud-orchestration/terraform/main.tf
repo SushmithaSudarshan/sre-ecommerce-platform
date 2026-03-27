@@ -6,8 +6,8 @@ data "aws_vpc" "default" {
   default = true
 }
 
-# Fetch subnets — exclude us-east-1e which EKS doesn't support
-ddata "aws_subnets" "default" {
+# Fetch subnets from default VPC
+data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]
@@ -35,7 +35,7 @@ resource "aws_eks_cluster" "ecommerce" {
   }
 }
 
-# EKS Node Group (single t3.small worker node — minimal cost)
+# EKS Node Group
 resource "aws_eks_node_group" "ecommerce_nodes" {
   cluster_name    = aws_eks_cluster.ecommerce.name
   node_group_name = "ecommerce-node-group"
