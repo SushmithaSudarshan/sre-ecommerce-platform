@@ -1,0 +1,9 @@
+# Terraform state files — contain sensitive infrastructure details
+terraform.tfstate
+terraform.tfstate.backup
+
+# Downloaded provider plugins — heavy, not needed in repo
+.terraform/
+
+# Crash logs
+crash.log
