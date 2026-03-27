@@ -167,4 +167,3 @@ kubectl delete namespace ecommerce
 cd ../terraform
 terraform destroy -auto-approve
 ```
-```
