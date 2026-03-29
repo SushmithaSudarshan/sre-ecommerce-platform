@@ -1,0 +1,47 @@
+name: CI — Build and Push Product Service
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'phase-1-docker-observability/product-service/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push product-service image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./phase-1-docker-observability/product-service
+          push: true
+          tags: |
+            sushmithasudarshan/product-service:${{ github.sha }}
+            sushmithasudarshan/product-service:latest
+
+      - name: Update image tag in staging manifest
+        run: |
+          sed -i "s|sushmithasudarshan/product-service:.*|sushmithasudarshan/product-service:${{ github.sha }}|g" \
+            phase-4-gitops/kubernetes/staging/product-service/deployment.yml
+          sed -i "s|sushmithasudarshan/product-service:.*|sushmithasudarshan/product-service:${{ github.sha }}|g" \
+            phase-4-gitops/kubernetes/prod/product-service/deployment.yml
+
+      - name: Commit updated manifests
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add phase-4-gitops/kubernetes/staging/product-service/deployment.yml
+          git add phase-4-gitops/kubernetes/prod/product-service/deployment.yml
+          git commit -m "Update product-service image to ${{ github.sha }}"
+          git push

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ecommerce-staging
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/SushmithaSudarshan/sre-ecommerce-platform
+    targetRevision: main
+    path: phase-4-gitops/kubernetes/staging
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecommerce-staging
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
