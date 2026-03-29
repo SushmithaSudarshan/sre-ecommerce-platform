@@ -16,7 +16,7 @@ def get_products():
 
 @app.route('/health', methods=['GET'])
 def health():
-    return jsonify({"status": "healthy"})
+    return jsonify({"status": "healthy", "version": "2.0"})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
