@@ -10,6 +10,8 @@ spec:
     repoURL: https://github.com/SushmithaSudarshan/sre-ecommerce-platform
     targetRevision: main
     path: phase-4-gitops/kubernetes/staging
+    directory:
+      recurse: true
 
   destination:
     server: https://kubernetes.default.svc
