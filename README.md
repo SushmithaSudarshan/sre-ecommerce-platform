@@ -13,7 +13,7 @@ The platform also includes simulated failure scenarios to demonstrate monitoring
 | [Phase 1 — Containerization & Observability](./phase-1-docker-observability) | Containerize microservices, API gateway, monitoring | Docker, Kong, Prometheus, Grafana |
 | [Phase 2 — CI/CD & Automation](./phase-2-orchestration-automation) | Automated build, push and deployment pipeline | Jenkins, Ansible |
 | [Phase 3 — Cloud & Orchestration](./phase-3-cloud-orchestration) | Deploy to AWS cloud with Kubernetes and IaC | AWS, EKS, Kubernetes, Terraform |
-| Phase 4 — GitOps *(coming soon)* | Full end to end automation | GitHub Actions, ArgoCD |
+| [Phase 4 — GitOps](./phase-4-gitops/) | Full end to end automation | GitHub Actions, ArgoCD |
 
 ## Business Problem
 
